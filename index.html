@@ -5,30 +5,58 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Beast Clips — Premium Studio Pack</title>
   <meta name="description" content="Ultra-premium HD clip packs for creators. Fast downloads, cinematic previews, and secure delivery." />
+
+  <!-- Open Graph / Twitter -->
   <meta property="og:title" content="Beast Clips — Premium Studio Pack" />
   <meta property="og:description" content="Cinematic HD clip packs for creators — fast downloads and secure delivery." />
-  <meta property="og:image" content="https://dailydosemovies.github.io/Beast-clips/beast-logo.png" />
+  <meta property="og:image" content="beast-logo.png" />
   <meta property="og:url" content="https://dailydosemovies.github.io/Beast-clips/" />
   <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Favicon (uses your uploaded logo file) -->
   <link rel="icon" href="beast-logo.png" sizes="32x32" />
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
   <style>
-    :root{--bg-1:#020212;--bg-2:#071028;--muted:#98a0aa;--accent-a:#00d4ff;--accent-b:#6c5ce7;--glass:rgba(255,255,255,0.03);--max-width:1100px}
-    *{box-sizing:border-box}html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;background:#030316;color:#eef6fb;-webkit-font-smoothing:antialiased}a{color:inherit}
-    body::before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(800px 400px at 8% 10%, rgba(108,92,231,0.08), transparent), linear-gradient(180deg,var(--bg-1),var(--bg-2));animation:slow-rotate 18s linear infinite;opacity:1;transform-origin:center}@keyframes slow-rotate{0%{filter:hue-rotate(0deg)}50%{filter:hue-rotate(18deg)}100%{filter:hue-rotate(0deg)}}
+    :root{
+      --bg-1:#020212;
+      --bg-2:#071028;
+      --muted:#98a0aa;
+      --accent-a:#00d4ff;
+      --accent-b:#6c5ce7;
+      --max-width:1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;background:#030316;color:#eef6fb;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+
+    /* animated gradient background */
+    body::before{
+      content:"";position:fixed;inset:0;z-index:-2;
+      background:radial-gradient(800px 400px at 8% 10%, rgba(108,92,231,0.08), transparent), linear-gradient(180deg,var(--bg-1),var(--bg-2));
+      animation:slow-rotate 18s linear infinite;opacity:1;transform-origin:center;
+    }
+    @keyframes slow-rotate{0%{filter:hue-rotate(0deg)}50%{filter:hue-rotate(18deg)}100%{filter:hue-rotate(0deg)}}
+
     .noise{position:fixed;inset:0;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,0.02) 1px, transparent 1px);background-size:48px 48px;opacity:0.35;z-index:-1}
+
     .wrap{max-width:var(--max-width);margin:44px auto;padding:28px}
     #preloader{position:fixed;inset:0;background:linear-gradient(180deg,rgba(2,6,23,0.95),rgba(2,6,23,0.92));display:flex;align-items:center;justify-content:center;z-index:9999;transition:opacity .45s;backdrop-filter: blur(2px)}
     #preloader.hide{opacity:0;pointer-events:none;visibility:hidden}
     .spinner{width:72px;height:72px;border-radius:50%;background:conic-gradient(var(--accent-b),var(--accent-a));box-shadow:0 12px 40px rgba(108,92,231,0.18);display:flex;align-items:center;justify-content:center;font-weight:800;color:#021227}
+
     .top{display:flex;align-items:center;gap:18px;margin-bottom:18px}
     .logo{width:84px;height:84px;border-radius:14px;background:linear-gradient(135deg,var(--accent-b),var(--accent-a));display:flex;align-items:center;justify-content:center;font-weight:800;color:#021227;font-size:26px;box-shadow:0 18px 50px rgba(12,14,30,0.6)}
     .logo img{width:64px;height:64px;object-fit:contain;border-radius:10px}
     h1{margin:0;font-family:'Playfair Display',serif;font-size:30px}
     .tag{color:var(--muted);margin-top:6px}
+
     .panel{display:grid;grid-template-columns:1fr 400px;gap:28px;align-items:start}
     .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:16px;padding:18px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 24px 80px rgba(2,6,23,0.65)}
+
     .cinema{position:relative;border-radius:12px;overflow:hidden;background:#000;box-shadow:0 40px 90px rgba(0,0,0,0.6)}
     .film{position:absolute;left:12px;top:12px;padding:8px;border-radius:8px;background:rgba(0,0,0,0.25);color:var(--muted);font-size:13px;z-index:4}
     .player{display:flex;align-items:center;justify-content:center;height:360px;position:relative;background:linear-gradient(180deg,#050517,#081028)}
@@ -36,37 +64,49 @@
     .player:hover img{transform:scale(1.04)}
     .play-btn{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:88px;height:88px;border-radius:999px;background:linear-gradient(90deg,var(--accent-b),var(--accent-a));display:flex;align-items:center;justify-content:center;font-size:32px;color:#021227;cursor:pointer;border:6px solid rgba(255,255,255,0.04);box-shadow:0 18px 50px rgba(108,92,231,0.18);transition:transform .18s ease}
     .play-btn:active{transform:translate(-50%,-50%) scale(.96)}
+
     .meta h3{margin:8px 0 6px 0;font-size:18px}
     .micro{font-size:13px;color:var(--muted)}
     .features{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
     .pill{background:rgba(255,255,255,0.02);padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);font-weight:600}
+
     .cta{margin-top:18px;display:flex;gap:12px;align-items:center}
     .btn-primary{background:linear-gradient(90deg,var(--accent-b),var(--accent-a));padding:14px 28px;border-radius:14px;color:#021227;font-weight:800;border:none;cursor:pointer;box-shadow:0 28px 70px rgba(108,92,231,0.18)}
     .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px 14px;border-radius:10px;color:var(--muted)}
+
     .float-cta{position:fixed;right:18px;bottom:18px;z-index:60}
     .float-cta a{display:inline-block;padding:14px 18px;border-radius:14px;background:linear-gradient(90deg,var(--accent-a),var(--accent-b));color:#021227;font-weight:700;text-decoration:none;box-shadow:0 22px 60px rgba(108,92,231,0.14);animation:float 3s ease-in-out infinite}
     @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+
     aside.side .card{padding:16px}
     .creator{display:flex;gap:10px;align-items:center;margin-top:8px}
     .avatar{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--accent-b),var(--accent-a));display:flex;align-items:center;justify-content:center;font-weight:800;color:#021227}
     .chip{background:rgba(255,255,255,0.02);padding:8px 10px;border-radius:10px;color:var(--muted);font-size:13px;border:1px solid rgba(255,255,255,0.03)}
+
     footer{margin-top:26px;text-align:center;color:var(--muted);font-size:13px}
-    .btn-primary:focus,.btn-ghost:focus,.float-cta a:focus{outline:3px solid rgba(108,92,231,0.14);outline-offset:4px;border-radius:12px}
-    @media(max-width:980px){.panel{grid-template-columns:1fr}.player{height:220px}.wrap{margin:18px;padding:18px}}
+    .btn-primary:focus, .btn-ghost:focus, .float-cta a:focus{outline:3px solid rgba(108,92,231,0.14);outline-offset:4px;border-radius:12px}
+    @media (max-width:980px){.panel{grid-template-columns:1fr}.player{height:220px}.wrap{margin:18px;padding:18px}}
   </style>
 
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"WebSite","name":"Beast Clips","url":"https://dailydosemovies.github.io/Beast-clips/","description":"Premium HD clip packs for creators. Fast downloads and secure delivery."}
   </script>
-
 </head>
+
 <body>
-  <div id="preloader" aria-hidden="true"><div class="spinner" role="img" aria-label="Loading">BC</div></div>
+  <!-- Preloader -->
+  <div id="preloader" aria-hidden="true">
+    <div class="spinner" role="img" aria-label="Loading">BC</div>
+  </div>
+
   <div class="noise" aria-hidden="true"></div>
 
   <div class="wrap" id="page">
     <div class="top">
-      <div class="logo" aria-hidden="true"><img src="/beast-logo.png" alt="Beast Clips logo"></div>
+      <div class="logo" aria-hidden="true">
+        <!-- header logo (relative path -> GitHub Pages project compatible) -->
+        <img src="beast-logo.png" alt="Beast Clips logo">
+      </div>
       <div>
         <h1>Beast Clips — Ultra-Premium Pack</h1>
         <div class="tag">Cinematic, ready-to-edit clips — built for creators.</div>
@@ -77,6 +117,7 @@
       <main class="card" aria-labelledby="packTitle">
         <div class="cinema" role="region" aria-label="preview">
           <div class="film">Premium Pack • 120 MB</div>
+
           <div class="player" id="player">
             <img src="https://images.unsplash.com/photo-1505685296765-3a2736de412f?q=60&w=1200&auto=format&fit=crop" alt="Beast Clips preview" loading="lazy" width="1200" height="675">
             <button class="play-btn" id="playBtn" aria-label="Play preview">
@@ -88,7 +129,12 @@
         <div class="meta">
           <h3 id="packTitle">What you get</h3>
           <p class="micro">A premium collection of HD clips (720p–1080p), color graded and trimmed for instant editing.</p>
-          <div class="features"><div class="pill">High bitrate</div><div class="pill">Organized</div><div class="pill">Reels ready</div></div>
+
+          <div class="features">
+            <div class="pill">High bitrate</div>
+            <div class="pill">Organized</div>
+            <div class="pill">Reels ready</div>
+          </div>
 
           <div class="cta" role="group" aria-label="Download actions">
             <button id="confirmDownload" class="btn-primary" aria-expanded="false">⬇️ Get Premium Pack</button>
@@ -97,38 +143,91 @@
 
           <p id="confirmText" class="micro" style="display:none;margin-top:12px;">Complete a quick offer to unlock your download link.</p>
 
-          <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap" aria-hidden="true"><div class="chip">24-hour access</div><div class="chip">Mobile friendly</div><div class="chip">Secure delivery</div></div>
+          <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap" aria-hidden="true">
+            <div class="chip">24-hour access</div>
+            <div class="chip">Mobile friendly</div>
+            <div class="chip">Secure delivery</div>
+          </div>
         </div>
       </main>
 
       <aside class="card side" aria-label="details">
         <small class="micro">Quick facts</small>
-        <div style="margin-top:10px;color:#eaf2fb"><div><strong>Format:</strong> ZIP</div><div><strong>Size:</strong> ~120 MB</div><div><strong>Access:</strong> 24 hours</div></div>
-        <div style="margin-top:12px"><small class="micro">How it works</small><ol style="color:var(--muted);padding-left:18px;margin-top:8px"><li>Tap “Get Premium Pack”</li><li>Tap “Continue to Unlock”</li><li>Complete 1 offer → get download</li></ol></div>
-        <div class="creator"><div class="avatar" aria-hidden="true">V</div><div><div style="font-weight:700">Vinayak • Beast Clips</div><a href="https://instagram.com/dailydosemovies007" style="color:var(--muted);text-decoration:none" target="_blank" rel="noopener noreferrer">@dailydosemovies007</a></div></div>
+
+        <div style="margin-top:10px;color:#eaf2fb">
+          <div><strong>Format:</strong> ZIP</div>
+          <div><strong>Size:</strong> ~120 MB</div>
+          <div><strong>Access:</strong> 24 hours</div>
+        </div>
+
+        <div style="margin-top:12px">
+          <small class="micro">How it works</small>
+          <ol style="color:var(--muted);padding-left:18px;margin-top:8px">
+            <li>Tap “Get Premium Pack”</li>
+            <li>Tap “Continue to Unlock”</li>
+            <li>Complete 1 offer → get download</li>
+          </ol>
+        </div>
+
+        <div class="creator">
+          <div class="avatar" aria-hidden="true">V</div>
+          <div>
+            <div style="font-weight:700">Vinayak • Beast Clips</div>
+            <a href="https://instagram.com/dailydosemovies007" style="color:var(--muted);text-decoration:none" target="_blank" rel="noopener noreferrer">@dailydosemovies007</a>
+          </div>
+        </div>
       </aside>
     </div>
 
     <footer>© 2025 Beast Clips • Premium packs for creators.</footer>
   </div>
 
-  <div class="float-cta" aria-hidden="false"><a id="floatLink" href="https://ridefiles.net/1857846" target="_blank" rel="noopener noreferrer">Get Pack</a></div>
+  <!-- Floating CTA -->
+  <div class="float-cta" aria-hidden="false">
+    <a id="floatLink" href="https://ridefiles.net/1857846" target="_blank" rel="noopener noreferrer">Get Pack</a>
+  </div>
 
   <script>
-    function hidePreloader(){const p=document.getElementById('preloader');if(!p) return; p.classList.add('hide');}
+    // PRELOADER: hide after load
+    function hidePreloader(){const p=document.getElementById('preloader'); if(!p) return; p.classList.add('hide');}
     window.addEventListener('load',()=>{setTimeout(hidePreloader,450);});
     setTimeout(hidePreloader,1800);
+
+    // Locker URL
     const LOCKER = "https://ridefiles.net/1857846";
+
+    // Two-step CTA: inserts "Continue to Unlock" link (opens locker)
     document.getElementById('confirmDownload').addEventListener('click', function(){
       document.getElementById('confirmText').style.display = 'block';
       this.setAttribute('aria-expanded','true');
       if(!document.getElementById('continueCTA')){
-        const a=document.createElement('a');a.id='continueCTA';a.href=LOCKER;a.target='_blank';a.rel='noopener noreferrer';a.className='btn-primary';a.textContent='Continue to Unlock →';a.style.marginTop='12px';this.insertAdjacentElement('afterend',a);
+        const a = document.createElement('a');
+        a.id = 'continueCTA';
+        a.href = LOCKER;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.className = 'btn-primary';
+        a.textContent = 'Continue to Unlock →';
+        a.style.marginTop = '12px';
+        this.insertAdjacentElement('afterend', a);
       }
-      this.disabled=true;this.style.opacity='0.85';
+      this.disabled = true;
+      this.style.opacity = '0.85';
     });
-    document.getElementById('preview').addEventListener('click',function(){const play=document.querySelector('.play-btn');play.style.transform='scale(.96)';setTimeout(()=>play.style.transform='scale(1)',220);document.querySelector('.player').scrollIntoView({behavior:'smooth',block:'center'});});
-    document.getElementById('playBtn').addEventListener('click',()=>{const p=document.getElementById('player');p.animate([{filter:'brightness(1.05)'},{filter:'brightness(1)'}],{duration:420});});
+
+    // Preview button micro-interaction
+    document.getElementById('preview').addEventListener('click', function(){
+      const play = document.querySelector('.play-btn');
+      play.style.transform = 'scale(.96)';
+      setTimeout(()=>play.style.transform='scale(1)',220);
+      document.querySelector('.player').scrollIntoView({behavior:'smooth',block:'center'});
+    });
+
+    // Play button pulse effect
+    document.getElementById('playBtn').addEventListener('click', ()=> {
+      const p = document.getElementById('player');
+      p.animate([{filter:'brightness(1.05)'},{filter:'brightness(1)'}],{duration:420});
+    });
   </script>
 </body>
 </html>
