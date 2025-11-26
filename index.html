@@ -4,126 +4,178 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Beast Clips — HD Clip Pack</title>
-  <meta name="description" content="Download curated HD clip packs and participate in giveaways. Clean, fast, and secure." />
+  <meta name="description" content="Premium HD clip packs for creators — fast downloads, clean delivery." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --accent:#ff6b6b;
-      --accent-2:#6c5ce7;
-      --muted:#98a0aa;
-      --card:#0f1724;
+      --bg1:#060615; --bg2:#07132a;
       --glass: rgba(255,255,255,0.04);
+      --muted: #9aa4b2;
+      --accent1: #ff6b6b; --accent2:#6c5ce7;
+      --glass-border: rgba(255,255,255,0.06);
+      --card-bg: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
     }
     *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:linear-gradient(180deg,#071024 0%, #041023 100%);color:#eef3f8;display:flex;align-items:flex-start;justify-content:center;padding:32px}
-    .wrap{width:100%;max-width:980px}
-    .hero{display:flex;gap:24px;align-items:center;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:28px;border-radius:18px;box-shadow:0 10px 40px rgba(2,6,23,0.7)}
-    .logo{width:78px;height:78px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#081226;font-size:20px}
-    .hero-content h1{margin:0;font-size:26px;letter-spacing:-0.5px}
-    .lead{color:var(--muted);margin:8px 0 0}
-    .grid{display:grid;grid-template-columns:1fr 380px;gap:22px;margin-top:18px}
-    .card{background:var(--card);padding:18px;border-radius:14px}
-    .preview{border-radius:12px;overflow:hidden;background:linear-gradient(180deg,#071428,#081020);}
-    .preview img{width:100%;height:auto;display:block}
-    .cta{display:flex;flex-direction:column;align-items:center;gap:12px;padding:14px}
-    .btn{display:inline-block;padding:14px 22px;font-weight:700;border-radius:12px;text-decoration:none;color:#fff}
-    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));box-shadow:0 12px 30px rgba(108,92,231,0.15)}
-    .btn-sub{background:rgba(255,255,255,0.03);color:var(--muted);padding:10px 14px;border-radius:10px}
-    .note{font-size:13px;color:var(--muted);text-align:center}
-    .features{display:flex;flex-direction:column;gap:10px;margin-top:14px}
-    .feature{display:flex;gap:12px;align-items:flex-start}
-    .dot{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#0b1220,rgba(255,255,255,0.02));display:flex;align-items:center;justify-content:center;font-weight:700}
-    .feature h4{margin:0;font-size:15px}
-    .feature p{margin:4px 0 0;color:var(--muted);font-size:13px}
-    .trust{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
-    .trust span{background:rgba(255,255,255,0.03);padding:8px 10px;border-radius:8px;color:var(--muted);font-size:13px}
-    footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
-    .btn:hover{transform:translateY(-3px)}
-    @media (max-width:880px){.grid{grid-template-columns:1fr}.hero{flex-direction:column}.logo{width:66px;height:66px}}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;background:radial-gradient(1200px 600px at 10% 10%, rgba(108,92,231,0.12), transparent), linear-gradient(180deg,var(--bg1),var(--bg2));color:#eaf2fb}
+
+    /* animated stars + gradient */
+    .scene{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+    .stars{position:absolute;inset:0;background-image:radial-gradient(#ffffff11 1px, transparent 1px);background-size:40px 40px;opacity:0.06;animation:drift 40s linear infinite}
+    @keyframes drift{from{transform:translateY(0)}to{transform:translateY(-200px)}}
+
+    .wrap{position:relative;max-width:1080px;margin:42px auto;padding:28px}
+    .panel{display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:start}
+
+    /* glass card */
+    .card{background:var(--card-bg);backdrop-filter: blur(8px);border-radius:16px;padding:20px;border:1px solid var(--glass-border);box-shadow:0 20px 60px rgba(2,6,23,0.6)}
+
+    header.hero{display:flex;gap:18px;align-items:center;margin-bottom:12px}
+    .logo{width:84px;height:84px;border-radius:18px;background:linear-gradient(135deg,var(--accent1),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#071226;font-size:26px;box-shadow:0 8px 30px rgba(108,92,231,0.12)}
+    h1{margin:0;font-size:28px;line-height:1.02}
+    p.lead{margin:8px 0 0;color:var(--muted)}
+
+    /* large preview with device frame */
+    .preview-wrap{border-radius:12px;overflow:hidden;position:relative}
+    .device{width:100%;height:320px;border-radius:12px;background:linear-gradient(180deg,#061029,#08121a);display:flex;align-items:center;justify-content:center;position:relative;box-shadow:inset 0 -40px 80px rgba(0,0,0,0.35)}
+    .device img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.02);transition:transform 600ms ease}
+    .play{position:absolute;display:flex;align-items:center;justify-content:center;width:84px;height:84px;border-radius:999px;border:6px solid rgba(255,255,255,0.06);background:linear-gradient(90deg,var(--accent2),var(--accent1));font-size:28px;box-shadow:0 18px 50px rgba(108,92,231,0.18);cursor:pointer}
+    .device:hover img{transform:scale(1.06)}
+
+    /* content */
+    .meta{padding:12px}
+    .muted{color:var(--muted)}
+
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+    .feature{background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);display:flex;flex-direction:column;align-items:flex-start}
+    .feature strong{display:block;font-size:14px}
+    .feature span{color:var(--muted);font-size:13px}
+
+    /* CTA */
+    .cta{margin-top:18px;display:flex;flex-direction:column;gap:12px;align-items:center}
+    .btn-primary{background:linear-gradient(90deg,var(--accent2),var(--accent1));padding:14px 26px;border-radius:14px;color:#fff;font-weight:700;text-decoration:none;box-shadow:0 18px 60px rgba(108,92,231,0.16);border:none;cursor:pointer}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px 14px;border-radius:10px;color:var(--muted)}
+    .note{font-size:13px;color:var(--muted)}
+
+    /* aside */
+    aside.side{position:relative}
+    .creator{display:flex;gap:12px;align-items:center;margin-top:6px}
+    .avatar{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent2),var(--accent1));display:flex;align-items:center;justify-content:center;font-weight:800;color:#071226}
+
+    .trust{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .chip{background:rgba(255,255,255,0.02);padding:8px 10px;border-radius:10px;color:var(--muted);font-size:13px;border:1px solid rgba(255,255,255,0.03)}
+
+    footer{margin-top:22px;text-align:center;color:var(--muted);font-size:13px}
+
+    /* small animations */
+    .card, .logo{transform:translateY(0);transition:transform 460ms cubic-bezier(.2,.9,.2,1)}
+    .card:hover{transform:translateY(-6px)}
+
+    @media (max-width:980px){.panel{grid-template-columns:1fr}.device{height:220px}}
   </style>
 </head>
-
 <body>
+  <div class="scene"><div class="stars"></div></div>
   <div class="wrap">
-    <div class="hero">
+    <header class="hero">
       <div class="logo">BC</div>
-      <div class="hero-content">
-        <h1>Beast Clips — Curated HD Clip Packs</h1>
-        <p class="lead">Fast downloads • Clean delivery • 24-hour access after unlock.</p>
-        <div style="margin-top:12px;display:flex;gap:8px;">
-          <a class="btn btn-sub" href="https://instagram.com/dailydosemovies007" target="_blank">Instagram</a>
-          <a class="btn btn-sub" href="mailto:viradiyavinayak@gmail.com">Contact</a>
+      <div>
+        <h1>Beast Clips — Premium HD Packs for Creators</h1>
+        <p class="lead">Fast, secure downloads — curated clips optimized for reels, edits and short videos.</p>
+        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+          <a class="btn-ghost" href="https://instagram.com/dailydosemovies007" target="_blank">Instagram</a>
+          <a class="btn-ghost" href="mailto:viradiyavinayak@gmail.com">Contact</a>
         </div>
       </div>
-    </div>
+    </header>
 
-    <div class="grid">
+    <div class="panel">
       <main class="card">
-        <div class="preview">
-          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1400&auto=format&fit=crop" alt="Preview">
+        <div class="preview-wrap">
+          <div class="device" role="button" aria-label="Play preview">
+            <img src="https://images.unsplash.com/photo-1520975698511-1a0a6a7f12d5?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Preview">
+            <div class="play">▶</div>
+          </div>
         </div>
 
-        <div style="padding:14px">
-          <h3 style="margin:0 0 8px 0">What you get</h3>
-          <p class="note">A curated collection of short HD clips for creators, editors & reel-makers.</p>
+        <div class="meta">
+          <h3 style="margin:6px 0">What you get</h3>
+          <p class="note">A premium collection of short HD clips — ready for editing, reposting and reels. Delivered as a single ZIP for easy download.</p>
 
-          <div class="features">
-            <div class="feature">
-              <div class="dot">HD</div>
-              <div><h4>High quality</h4><p>Clips are 720p–1080p, crisp and clean.</p></div>
-            </div>
-            <div class="feature">
-              <div class="dot">ZIP</div>
-              <div><h4>Easy download</h4><p>One ZIP file with all clips.</p></div>
-            </div>
-            <div class="feature">
-              <div class="dot">✓</div>
-              <div><h4>Safe & compliant</h4><p>We do not host copyrighted content.</p></div>
-            </div>
+          <div class="features" style="margin-top:14px">
+            <div class="feature"><strong>Ready-to-edit</strong><span>Trimmed, clean clips for fast editing.</span></div>
+            <div class="feature"><strong>High bitrate</strong><span>720p–1080p, color-graded.</span></div>
+            <div class="feature"><strong>Organized</strong><span>Named files & timestamps included.</span></div>
           </div>
 
-          <!-- CTA -->
-          <div style="margin-top:18px;text-align:center">
-            <button id="confirmDownload" class="btn btn-primary">⬇️ Get HD Clip Pack</button>
-            <p id="confirmText" class="note" style="display:none;margin-top:10px">You will be redirected to a short offer page.</p>
-            <div id="continueWrap" style="display:none;margin-top:12px">
-              <a id="continueToLocker" class="btn" style="background:linear-gradient(90deg,var(--accent-2),var(--accent));" href="https://ridefiles.net/1857846" target="_blank">Continue to Unlock →</a>
+          <div class="cta">
+            <button id="confirmDownload" class="btn-primary">⬇️ Get Premium Clip Pack</button>
+            <p id="confirmText" class="note" style="display:none">You will be redirected to a short offer page — complete one offer to unlock the download link.</p>
+            <div id="continueWrap" style="display:none">
+              <a id="continueToLocker" class="btn-primary" href="https://ridefiles.net/1857846" target="_blank" rel="noopener noreferrer">Continue to Unlock →</a>
             </div>
-            <p class="note" style="margin-top:12px">Access lasts 24 hours after unlock.</p>
+            <p class="note">Access valid for <strong>24 hours</strong> after unlock.</p>
+          </div>
+
+          <div class="trust" aria-hidden="true">
+            <div class="chip">Secure delivery</div>
+            <div class="chip">Instant link</div>
+            <div class="chip">Mobile friendly</div>
+            <div class="chip">No spam</div>
           </div>
         </div>
       </main>
 
-      <aside class="card">
-        <div class="meta">
-          <small style="color:var(--muted)">Quick facts</small>
-          <div style="margin-top:10px;">
+      <aside class="card side">
+        <div style="padding:12px">
+          <small class="muted">Quick facts</small>
+          <div style="margin-top:10px;color:#eaf2fb">
             <div><strong>Format:</strong> ZIP (editable clips)</div>
-            <div><strong>Size:</strong> 120 MB</div>
+            <div><strong>Size:</strong> ~120 MB</div>
             <div><strong>Access:</strong> 24 hours</div>
           </div>
 
           <div style="margin-top:14px">
-            <small style="color:var(--muted)">How to use</small>
+            <small class="muted">How it works</small>
             <ol style="color:var(--muted);padding-left:18px;margin-top:8px">
-              <li>Click Get HD Clip Pack</li>
-              <li>Click Continue to Unlock</li>
-              <li>Complete a short offer</li>
+              <li>Tap <em>Get Premium Clip Pack</em></li>
+              <li>Tap <em>Continue to Unlock</em> and complete one short offer</li>
+              <li>Receive the secure download link</li>
             </ol>
+          </div>
+
+          <div class="creator">
+            <div class="avatar">V</div>
+            <div>
+              <div style="font-weight:700">Vinayak • Beast Clips</div>
+              <a href="https://instagram.com/dailydosemovies007" style="color:var(--muted);text-decoration:none">@dailydosemovies007</a>
+            </div>
+          </div>
+
+          <div style="margin-top:16px">
+            <small class="muted">Reviews</small>
+            <blockquote style="margin:8px 0 0;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);color:var(--muted)">"Quality clips and fast delivery — perfect for reels." — @editor_pro</blockquote>
           </div>
         </div>
       </aside>
     </div>
 
-    <footer>
-      © 2025 Beast Clips • Clean & compliant affiliate promotion.
-    </footer>
+    <footer>© 2025 Beast Clips • Premium packs for creators.</footer>
   </div>
 
   <script>
+    // two-step CTA
     document.getElementById('confirmDownload').addEventListener('click', function(){
       document.getElementById('confirmText').style.display = 'block';
       document.getElementById('continueWrap').style.display = 'block';
-      this.disabled = true; this.style.opacity = '0.9';
+      this.disabled = true; this.style.opacity = '0.95';
+      setTimeout(function(){document.getElementById('continueToLocker').scrollIntoView({behavior:'smooth',block:'center'})},160);
+    });
+
+    // play preview faux action
+    document.querySelector('.device').addEventListener('click', function(){
+      var el = this.querySelector('img'); el.style.filter = 'brightness(0.75)';
+      setTimeout(function(){el.style.filter='';},900);
     });
   </script>
 </body>
