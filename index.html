@@ -1,376 +1,159 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>DailyDoseMovies — Unlock 1600+ MrBeast Clips</title>
+  <meta name="description" content="Click the ad to unlock the free clips bundle." />
   <style>
     :root{
-      --bg:#0d1117;
-      --card:#161b22;
-      --accent:#ff4747;
-      --accent2:#ff7b7b;
-      --text:#e6edf3;
-      --muted:#9ba4b5;
-      --glass:rgba(255,255,255,0.05);
-      --radius:18px;
-      --shadow:0 8px 20px rgba(0,0,0,0.35);
+      --bg:#0b0f14; --card:#0f1720; --accent:#ff4b4b; --green:#22c55e;
+      --muted:#9aa4b2; --glass:rgba(255,255,255,0.03); --radius:14px;
     }
-    *{margin:0;padding:0;box-sizing:border-box;font-family:Inter, system-ui, sans-serif;}
-    body{background:var(--bg);color:var(--text);padding:18px;display:flex;justify-content:center}
+    *{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;}
+    body{margin:0;background:linear-gradient(180deg,#07111a,#081422);color:#e6eef6;padding:20px;display:flex;justify-content:center}
+    .page{width:100%;max-width:980px}
+    .card{background:var(--card);padding:20px;border-radius:16px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 30px rgba(0,0,0,0.6)}
+    h1{font-size:22px;margin:0 0 8px}
+    p.lead{color:var(--muted);margin:0 0 18px}
 
-    .container{
-      max-width:880px;width:100%;background:var(--card);border-radius:var(--radius);
-      padding:22px;box-shadow:var(--shadow);
-      border:1px solid rgba(255,255,255,0.06);
-    }
+    /* GRID: Left = ad, Right = download/info */
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:18px;align-items:start}
+    @media(max-width:880px){.grid{grid-template-columns:1fr}}
 
-    .header{
-      text-align:center;margin-bottom:22px;
-    }
+    /* AD AREA (very obvious) */
+    .ad-wrap{background:linear-gradient(180deg,rgba(255,75,75,0.06), rgba(255,75,75,0.03));border-radius:12px;padding:14px;border:1px solid rgba(255,75,75,0.12)}
+    .ad-label{display:inline-block;background:var(--accent);color:white;padding:6px 10px;border-radius:10px;font-weight:700;margin-bottom:10px}
+    .ad-box{margin-top:8px;background:rgba(0,0,0,0.25);height:220px;border-radius:12px;display:flex;align-items:center;justify-content:center;border:2px dashed rgba(255,255,255,0.04);cursor:pointer;position:relative}
+    .ad-tip{position:absolute;bottom:10px;left:12px;color:var(--muted);font-size:13px}
 
-    .header h1{
-      font-size:26px;font-weight:800;
-      background:linear-gradient(90deg,var(--accent),var(--accent2));
-      -webkit-background-clip:text;color:transparent;
-    }
+    /* RIGHT: DOWNLOAD CARD */
+    .download-card{background:var(--glass);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    .download-title{font-weight:800;font-size:18px;margin-bottom:8px}
+    .download-explain{color:var(--muted);font-size:14px;margin-bottom:12px}
 
-    .sub{
-      margin-top:8px;color:var(--muted);font-size:15px;line-height:1.4;
-    }
+    .manual-btn{display:block;width:100%;padding:12px;border-radius:12px;border:none;background:#0f1727;color:white;font-weight:700;cursor:pointer;margin-bottom:12px}
+    .download-btn{display:none;text-align:center;padding:14px 18px;border-radius:12px;background:linear-gradient(90deg,var(--green),#7be39b);color:#022;font-weight:800;border:none;width:100%;cursor:pointer;text-decoration:none}
 
-    .hero{
-      display:flex;gap:20px;flex-wrap:wrap;margin-top:20px;
-    }
+    .bottom-ad{margin-top:18px;height:120px;border-radius:10px;background:rgba(255,255,255,0.02);display:flex;align-items:center;justify-content:center;color:var(--muted);border:1px dashed rgba(255,255,255,0.03)}
 
-    .poster{
-      flex:1;min-width:230px;background:#0c0f13;border-radius:var(--radius);
-      height:260px;display:flex;align-items:center;justify-content:center;font-size:16px;
-      color:var(--muted);border:1px solid rgba(255,255,255,0.04);
-    }
-
-    .unlock-card{
-      flex:1.4;min-width:250px;background:var(--glass);
-      padding:18px;border-radius:var(--radius);
-      border:1px solid rgba(255,255,255,0.08);
-    }
-
-    .unlock-title{
-      font-size:18px;font-weight:700;margin-bottom:10px;
-    }
-
-    .ad-box{
-      background:rgba(255,255,255,0.03);
-      height:140px;border-radius:var(--radius);
-      border:1px dashed rgba(255,255,255,0.12);
-      display:flex;align-items:center;justify-content:center;text-align:center;
-      padding:10px;color:var(--muted);
-      font-size:14px;margin-bottom:12px;cursor:pointer;
-      transition:0.25s;
-    }
-    .ad-box:hover{background:rgba(255,255,255,0.06);}    
-
-    .btn{
-      width:100%;padding:14px;background:linear-gradient(90deg,var(--accent),var(--accent2));
-      border:none;border-radius:var(--radius);font-size:16px;font-weight:700;
-      color:white;cursor:pointer;margin-top:10px;
-      box-shadow:0 5px 14px rgba(255,71,71,0.4);
-      transition:0.25s;
-    }
-    .btn:hover{opacity:0.9;}
-
-    .download-box{display:none;margin-top:16px;text-align:center;}
-
-    .download-link{
-      display:inline-block;padding:14px 20px;background:linear-gradient(90deg,#22c55e,#4ade80);
-      border-radius:var(--radius);color:white;font-size:17px;font-weight:800;text-decoration:none;
-      box-shadow:0 5px 14px rgba(34,197,94,0.4);
-    }
-
-    .bottom-ad{
-      margin-top:22px;height:160px;background:rgba(255,255,255,0.03);
-      border-radius:var(--radius);border:1px dashed rgba(255,255,255,0.12);
-      display:flex;align-items:center;justify-content:center;color:var(--muted);
-    }
-
-    footer{
-      text-align:center;margin-top:18px;font-size:13px;color:var(--muted);
-    }
-
-    @media(max-width:700px){
-      .header h1{font-size:22px;}
-      .poster{height:200px;}
-    }
-  </style>
-  <!-- Enhanced Effects CSS -->
-  <style>
-    /* Parallax animated gradient background */
-    body{
-      background: linear-gradient(135deg, #0d1117, #111927, #0f1c2d, #0a0f18);
-      background-size: 400% 400%;
-      animation: gradientMove 18s ease infinite;
-    }
-    @keyframes gradientMove{
-      0%{background-position:0% 50%;}
-      50%{background-position:100% 50%;}
-      100%{background-position:0% 50%;}
-    }
-
-    /* Shine animation on download button */
-    .download-link{
-      position:relative;overflow:hidden;
-    }
-    .download-link::after{
-      content:"";
-      position:absolute;top:0;left:-100%;width:70%;height:100%;
-      background:linear-gradient(120deg, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.0) 100%);
-      transform:skewX(-20deg);
-      animation:shine 3s infinite;
-    }
-    @keyframes shine{
-      0%{left:-100%;}
-      50%{left:130%;}
-      100%{left:130%;}
-    }
-
-    /* Floating CTA button */
-    .floating-cta{
-      position:fixed;bottom:20px;right:20px;z-index:9999;
-      background:linear-gradient(90deg, var(--accent), var(--accent2));
-      padding:14px 20px;border-radius:var(--radius);font-weight:700;
-      color:white;text-decoration:none;box-shadow:0 8px 25px rgba(255,71,71,0.45);
-      animation:float 3s ease-in-out infinite;
-    }
-    @keyframes float{
-      0%,100%{transform:translateY(0);} 
-      50%{transform:translateY(-6px);} 
-    }
-
-    /* Pulsing border glow for ad-box */
-    .ad-box{
-      position:relative;
-      animation:adGlow 2.5s ease-in-out infinite;
-    }
-    @keyframes adGlow{
-      0%{box-shadow:0 0 0px rgba(255,71,71,0.0);} 
-      50%{box-shadow:0 0 18px rgba(255,71,71,0.28);} 
-      100%{box-shadow:0 0 0px rgba(255,71,71,0.0);} 
-    }
-  </style>
-  <!-- Enhanced Effects CSS -->
-  <style>
-    /* BACKGROUND PARTICLE EFFECT */
-    #particles{
-      position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:-1;
-    }
-
-    /* Animated gradient background */
-    body{
-      background: linear-gradient(135deg, #0d1117, #111927, #0f1c2d, #0a0f18);
-      background-size: 400% 400%;
-      animation: gradientMove 18s ease infinite;
-    }
-    @keyframes gradientMove{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
-
-    /* DOWNLOAD BUTTON SHINE */
-    .download-link{position:relative;overflow:hidden;}
-    .download-link::after{
-      content:"";position:absolute;top:0;left:-100%;width:70%;height:100%;
-      background:linear-gradient(120deg, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.0) 100%);
-      transform:skewX(-20deg);animation:shine 3s infinite;
-    }
-    @keyframes shine{0%{left:-100%;}50%{left:130%;}100%{left:130%;}}
-
-    /* FLOATING CTA */
-    .floating-cta{
-      position:fixed;bottom:20px;right:20px;z-index:9999;
-      background:linear-gradient(90deg, var(--accent), var(--accent2));
-      padding:14px 20px;border-radius:var(--radius);font-weight:700;color:white;text-decoration:none;
-      box-shadow:0 8px 25px rgba(255,71,71,0.45);animation:float 3s ease-in-out infinite;
-    }
-    @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
-
-    /* AD-BOX PULSE */
-    .ad-box{animation:adGlow 2.5s ease-in-out infinite;}
-    @keyframes adGlow{0%{box-shadow:0 0 0px rgba(255,71,71,0.0);}50%{box-shadow:0 0 18px rgba(255,71,71,0.28);}100%{box-shadow:0 0 0px rgba(255,71,71,0.0);}}
-
-    /* TYPEWRITER HEADER ANIMATION */
-    .typewriter{overflow:hidden;border-right:3px solid #ff4747;white-space:nowrap;width:0;animation:typing 3s steps(30,end) forwards, blink 0.7s infinite;}
-    @keyframes typing{from{width:0;}to{width:100%;}}
-    @keyframes blink{50%{border-color:transparent;}}
-
-    /* COUNTDOWN TIMER */
-    #timer{font-size:17px;margin-top:10px;font-weight:700;color:#ff7b7b;text-align:center;}
-
-    /* FAQs */
-    .faq{margin-top:30px;}
-    .faq-item{background:var(--glass);padding:14px;border-radius:var(--radius);margin-bottom:12px;border:1px solid rgba(255,255,255,0.06);cursor:pointer;}
-    .faq-item h3{margin:0;font-size:16px;color:#fff;}
-    .faq-item p{display:none;margin-top:8px;color:var(--muted);font-size:14px;line-height:1.4;}
-
-    /* VIBRATION BUTTON ON MOBILE */
-    .btn:active{transform:scale(0.97);}    
+    footer{color:var(--muted);font-size:13px;margin-top:16px;text-align:center}
   </style>
 </head>
 <body>
-  <div class="container">
-    <div id="particles"></div>
+  <div class="page">
+    <div class="card">
+      <h1>Unlock 1600+ MrBeast Clips — Free</h1>
+      <p class="lead">Follow the steps: <strong>1)</strong> Click the clearly marked red AD box. <strong>2)</strong> A new tab will open. <strong>3)</strong> Come back and press the green <em>Download</em> button.</p>
 
-    <div class="header">
-      <h1 class="typewriter">Unlock 1600+ MrBeast Clips (Free)</h1>
-      <h1>Unlock 1600+ MrBeast Clips (Free)</h1>
-      <p class="sub">Click the ad below → a new tab opens → your download unlocks instantly.</p>
-    </div>
+      <div class="grid">
+        <!-- LEFT: big clear ad area -->
+        <div>
+          <div class="ad-wrap">
+            <div class="ad-label">AD — Click here to unlock</div>
+            <div id="ad-box" class="ad-box" aria-label="Ad area — click to open ad and unlock">
+              <!-- visible placeholder (users see this). Keep the ad script inside this container -->
+              <div>
+                <div style="font-weight:800;font-size:16px">CLICK THE RED AD BOX</div>
+                <div style="margin-top:8px;color:var(--muted)">One honest click — no surveys</div>
+              </div>
 
-    <div class="hero">
-      <div class="poster">CLIPS BUNDLE COVER</div>
+              <!-- POPUNDER ADSTERra (keeps existing popunder) -->
+              <script type='text/javascript' src='//pl28140280.effectivegatecpm.com/6a/04/dd/6a04dda7085af7629b4a17c0ba69bf59.js'></script>
 
-      <div class="unlock-card">
-        <div class="unlock-title">Step 1: Click the Ad Below</div>
+              <div class="ad-tip">Tap anywhere inside this red box</div>
+            </div>
 
-        <!-- AD CLICK BOX -->
-        <div id="ad-slot" class="ad-box">
-          <div>
-            <strong style="color:#fff;font-size:15px;">CLICK HERE TO UNLOCK</strong><br>
-            <small>Tap the ad area → Unlocks instantly</small>
+            <div class="bottom-ad" id="native-banner-container">
+              <!-- Native banner will display here -->
+              <script async="async" data-cfasync="false" src="//pl28143066.effectivegatecpm.com/1f1b1887fc58fc36cd3f3ba85d2b44be/invoke.js"></script>
+              <div id="container-1f1b1887fc58fc36cd3f3ba85d2b44be"></div>
+            </div>
           </div>
-          <script type='text/javascript' src='//pl28140280.effectivegatecpm.com/6a/04/dd/6a04dda7085af7629b4a17c0ba69bf59.js'></script>
         </div>
 
-        <button id="manualBtn" class="btn">I Clicked The Ad — Unlock</button>
+        <!-- RIGHT: download + instructions -->
+        <div class="download-card">
+          <div class="download-title">Step 2: Get the Download</div>
+          <div class="download-explain">After clicking the ad and opening the new tab, click the button below to open your Google Drive bundle.</div>
 
-        <!-- Download section -->
-        <div id="timer">Offer unlocks in <span id='countdown'>09</span> seconds…</div>
+          <!-- Manual unlock button (for users who clicked the ad but didn't get popunder) -->
+          <button id="manualUnlock" class="manual-btn">I clicked the ad — Reveal Download</button>
 
-        <div id="download" class="download-box">
-          <a id="downloadLink" class="download-link" href="#" target="_blank">Download Clips Bundle</a>
+          <!-- Download button (hidden until unlock) -->
+          <a id="downloadBtn" class="download-btn" href="#" target="_blank" rel="noopener">▶ Download 1600+ Clips (Free)</a>
+
+          <!-- small help text -->
+          <div style="margin-top:10px;color:var(--muted);font-size:13px">If popups are blocked, allow popups for this site and tap the red AD box once. Do not click repeatedly.</div>
         </div>
       </div>
-    </div>
 
-    <!-- Bottom native banner -->
-    <div class="bottom-ad" id="banner-slot">
-      <script async="async" data-cfasync="false" src="//pl28143066.effectivegatecpm.com/1f1b1887fc58fc36cd3f3ba85d2b44be/invoke.js"></script>
-      <div id="container-1f1b1887fc58fc36cd3f3ba85d2b44be"></div>
-    </div>
-
-    <footer>© DailyDoseMovies — Unlock exclusive curated clips.</footer>
-
-    <!-- FAQ SECTION -->
-    <div class="faq">
-      <div class="faq-item"><h3>What is this bundle?</h3><p>It contains 1600+ clips curated from MrBeast-style content for editing.</p></div>
-      <div class="faq-item"><h3>Is it really free?</h3><p>Yes! Just unlock by clicking one ad to support the creator.</p></div>
-      <div class="faq-item"><h3>Is it safe?</h3><p>Yes, the download is hosted on Google Drive.</p></div>
-    </div>
-
-    <script>
-      // FAQ toggle
-      document.querySelectorAll('.faq-item').forEach(i=>{
-        i.addEventListener('click',()=>{
-          const p = i.querySelector('p');
-          p.style.display = p.style.display==='block'?'none':'block';
-        });
-      });
-
-      // Countdown
-      let t=9;
-      const cd=document.getElementById('countdown');
-      const int=setInterval(()=>{
-        t--;cd.textContent=t<10?'0'+t:t;
-        if(t<=0) clearInterval(int);
-      },1000);
-
-      // Particle background generator
-      const canvas=document.createElement('canvas');
-      canvas.width=innerWidth;canvas.height=innerHeight;
-      const c=canvas.getContext('2d');document.getElementById('particles').appendChild(canvas);
-      const parts=[];for(let i=0;i<60;i++){parts.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:1+Math.random()*2,dx:(Math.random()-0.5)*0.4,dy:(Math.random()-0.5)*0.4});}
-      function animate(){c.clearRect(0,0,innerWidth,innerHeight);parts.forEach(p=>{c.beginPath();c.arc(p.x,p.y,p.r,0,Math.PI*2);c.fillStyle='rgba(255,255,255,0.15)';c.fill();p.x+=p.dx;p.y+=p.dy;if(p.x<0||p.x>innerWidth)p.dx*=-1;if(p.y<0||p.y>innerHeight)p.dy*=-1;});requestAnimationFrame(animate);}animate();
-    </script>
-
-    <!-- Feature Section -->
-    <div class="features" style="margin-top:40px; display:grid; gap:18px; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));">
-      <div style="background:var(--glass); padding:16px; border-radius:var(--radius); border:1px solid rgba(255,255,255,0.06); text-align:center;">
-        <div style="font-size:32px; margin-bottom:8px;">🔥</div>
-        <div style="font-weight:700;">1600+ Clips</div>
-        <p style="color:var(--muted); font-size:14px; margin-top:6px;">A huge bundle of MrBeast clips ready for editing & reel creation.</p>
+      <!-- bottom banner (separate from ad box) -->
+      <div style="margin-top:18px" class="bottom-ad">
+        <!-- second banner (keeps earlier banner implementation) -->
+        <script type="text/javascript">
+          atOptions = { 'key' : 'afcd7ee062dce2bbda135d072dd74762', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/afcd7ee062dce2bbda135d072dd74762/invoke.js"></script>
       </div>
-      <div style="background:var(--glass); padding:16px; border-radius:var(--radius); border:1px solid rgba(255,255,255,0.06); text-align:center;">
-        <div style="font-size:32px; margin-bottom:8px;">⚡</div>
-        <div style="font-weight:700;">No Watermark</div>
-        <p style="color:var(--muted); font-size:14px; margin-top:6px;">Clean clips optimized for Instagram, YouTube Shorts & TikTok.</p>
-      </div>
-      <div style="background:var(--glass); padding:16px; border-radius:var(--radius); border:1px solid rgba(255,255,255,0.06); text-align:center;">
-        <div style="font-size:32px; margin-bottom:8px;">🚀</div>
-        <div style="font-weight:700;">Fast Unlock</div>
-        <p style="color:var(--muted); font-size:14px; margin-top:6px;">Just one click on the ad and your download unlocks instantly.</p>
-      </div>
-    </div>
 
-    <!-- Testimonials -->
-    <div style="margin-top:40px;">
-      <h2 style="text-align:center; font-size:22px; margin-bottom:20px; color:#fff;">What Creators Say</h2>
-      <div style="display:grid; gap:18px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">
-        <div style="background:var(--glass); padding:18px; border-radius:var(--radius); border:1px solid rgba(255,255,255,0.08);">
-          <p style="font-size:14px; color:var(--muted);">“These clips helped me grow my reel page from 0 to 5,000 followers in 2 weeks.”</p>
-          <div style="margin-top:10px; font-weight:700;">— Rohan</div>
-        </div>
-        <div style="background:var(--glass); padding:18px; border-radius:var(--radius); border:1px solid rgba(255,255,255,0.08);">
-          <p style="font-size:14px; color:var(--muted);">“Perfect quality & easy editing. My engagement literally doubled.”</p>
-          <div style="margin-top:10px; font-weight:700;">— Sneha</div>
-        </div>
-        <div style="background:var(--glass); padding:18px; border-radius:var(--radius); border:1px solid rgba(255,255,255,0.08);">
-          <p style="font-size:14px; color:var(--muted);">“Best free bundle I’ve downloaded. Really helps for daily content uploads.”</p>
-          <div style="margin-top:10px; font-weight:700;">— Arjun</div>
-        </div>
-      </div>
+      <footer>© Daily Dose Movies — Curated clips & previews.</footer>
     </div>
-
-    <!-- Smooth Fade-in Animation -->
-    <style>
-      .fade-in{opacity:0; transform:translateY(10px); animation:fade 0.8s ease forwards;}
-      @keyframes fade{to{opacity:1; transform:translateY(0);}}
-      .container, .hero, .unlock-card, .poster, .features, .bottom-ad {animation:fade 1s ease forwards; opacity:0; animation-fill-mode:forwards;}
-      .container{animation-delay:0.1s;}
-      .hero{animation-delay:0.2s;}
-      .unlock-card{animation-delay:0.25s;}
-      .poster{animation-delay:0.25s;}
-      .features{animation-delay:0.35s;}
-      .bottom-ad{animation-delay:0.45s;}
-    </style>
   </div>
 
-  <!-- SOCIAL BAR -->
+  <!-- Social bar -->
   <script type='text/javascript' src='//pl28143241.effectivegatecpm.com/f0/2c/58/f02c5849f07beb086e46bd9171651046.js'></script>
 
   <script>
+    // CONFIG — your Smartlink & Drive link (already provided)
     const SMARTLINK = 'https://www.effectivegatecpm.com/y75zg2mh1?key=17ebc095ec3c5a119c93b35a14d8f365&np=1';
     const DOWNLOAD_URL = 'https://drive.google.com/drive/folders/1FDwIn5K59moTW8C6e6uGW1egAJJKioC7';
 
+    // Helpers
     function revealDownload(){
-      document.getElementById('downloadLink').href = DOWNLOAD_URL;
-      document.getElementById('download').style.display = 'block';
+      const dl = document.getElementById('downloadBtn');
+      dl.href = DOWNLOAD_URL;
+      dl.style.display = 'inline-block';
+      dl.scrollIntoView({behavior:'smooth', block:'center'});
+      sessionStorage.setItem('unlocked','1');
     }
 
+    function openSmartlink(){
+      // Must be triggered by user click to avoid popup block
+      try{
+        const w = window.open(SMARTLINK, '_blank');
+        if(w){ try{ w.focus(); }catch(e){} }
+      }catch(e){}
+    }
+
+    // Combined flow: open smartlink and reveal
     function openSmartlinkThenReveal(){
-      try{ window.open(SMARTLINK, '_blank'); }catch(e){}
-      setTimeout(revealDownload, 900);
+      openSmartlink();
+      setTimeout(revealDownload, 700); // slight delay so smartlink has time to fire
     }
 
-    let adClickDetected = false;
+    // Event bindings
+    const adBox = document.getElementById('ad-box');
+    const manualBtn = document.getElementById('manualUnlock');
 
-    document.getElementById('ad-slot').addEventListener('click', ()=>{
-      adClickDetected = true;
+    // 1) When user taps ad box: trigger smartlink + reveal download
+    adBox.addEventListener('click', function(e){
+      // prevent double triggers if already unlocked this session
+      if(sessionStorage.getItem('unlocked')){ revealDownload(); return; }
       openSmartlinkThenReveal();
     });
 
-    document.getElementById('manualBtn').addEventListener('click', ()=>{
-      openSmartlinkThenReveal();
+    // 2) Manual unlock button (for users who clicked but popup blocked)
+    manualBtn.addEventListener('click', function(){
+      if(sessionStorage.getItem('unlocked')){ revealDownload(); return; }
+      // ask for confirmation to prevent abuse
+      if(confirm('Did you click the AD and open a new tab/window? Click OK to reveal the download.')){
+        openSmartlinkThenReveal();
+      }
     });
 
+    // If previously unlocked in this browser session — show download
+    if(sessionStorage.getItem('unlocked')){ revealDownload(); }
   </script>
-  <!-- Floating CTA Button -->
-  <a href="#download" class="floating-cta">Unlock Clips 🚀</a>
-
 </body>
 </html>
